@@ -11,7 +11,7 @@ var otterOneTitle = 'Stayin\' Alive';
 
 var THUMBNAIL_INDEX = 0;
 var NEXT_IMAGE_SELECTOR = '[button-role="next"]';
-var PREV_IMAGE_SELECTOR = '[button-role="preious"]';
+var PREV_IMAGE_SELECTOR = '[button-role="previous"]';
 
 function setDetails(imageUrl, TitleText) {
     'use strict';
@@ -115,17 +115,17 @@ function initializeEvents() {
     var thumbnails = getThumbnailsArray();
     thumbnails.forEach(addThumbClickHandler);
 
-    for(var i = 0; i < thumbnails.length; i++) {
+    for (var i = 0; i < thumbnails.length; i++) {
         thumbnails[i].addEventListener('click', trackThumbnailIndex(i));
     }
 
     var next = document.querySelector(NEXT_IMAGE_SELECTOR);
-    next.addEventListener('click', function() {
+    next.addEventListener('click', function () {
         nextDetailImage();
     });
 
     var prev = document.querySelector(PREV_IMAGE_SELECTOR);
-    prev.addEventListener('click', function() {
+    prev.addEventListener('click', function () {
         prevDetailImage();
     });
 

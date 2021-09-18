@@ -9,6 +9,10 @@ var ESC_KEY = 27;
 var otterOneImage = 'img/otter1.jpg';
 var otterOneTitle = 'Stayin\' Alive';
 
+var THUMBNAIL_INDEX = 0;
+var NEXT_IMAGE_SELECTOR = '[button-role="next"]';
+var PREV_IMAGE_SELECTOR = '[button-role="preious"]';
+
 function setDetails(imageUrl, TitleText) {
     'use strict';
     var detailImage = document.querySelector(DETAIL_IMAGE_SELECTOR);
@@ -40,6 +44,30 @@ function addThumbClickHandler(thumb) {
         setDetailsFromThumb(thumb);
         showdetails();
     });
+}
+
+function nextDetailImage() {
+    'use strict';
+    var thumbnails = getThumbnailsArray();
+
+    THUMBNAIL_INDEX++;
+    if (THUMBNAIL_INDEX > thumbnails.length - 1) {
+        THUMBNAIL_INDEX = 0;
+    }
+    setDetailsFromThumb(thumbnails[THUMBNAIL_INDEX]);
+    showdetails();
+}
+
+function prevDetailImage() {
+    'use strict';
+    var thumbnails = getThumbnailsArray();
+
+    THUMBNAIL_INDEX--;
+    if (THUMBNAIL_INDEX < 0) {
+        THUMBNAIL_INDEX = thumbnails.length - 1;
+    }
+    setDetailsFromThumb(thumbnails[THUMBNAIL_INDEX]);
+    showdetails();
 }
 
 function getThumbnailsArray() {
@@ -75,10 +103,32 @@ function addKeyPressHandler() {
     });
 }
 
+function trackThumbnailIndex(index) {
+    'use strict';
+    return function () {
+        THUMBNAIL_INDEX = index;
+    };
+}
+
 function initializeEvents() {
     'use strict';
     var thumbnails = getThumbnailsArray();
     thumbnails.forEach(addThumbClickHandler);
+
+    for(var i = 0; i < thumbnails.length; i++) {
+        thumbnails[i].addEventListener('click', trackThumbnailIndex(i));
+    }
+
+    var next = document.querySelector(NEXT_IMAGE_SELECTOR);
+    next.addEventListener('click', function() {
+        nextDetailImage();
+    });
+
+    var prev = document.querySelector(PREV_IMAGE_SELECTOR);
+    prev.addEventListener('click', function() {
+        prevDetailImage();
+    });
+
     addKeyPressHandler();
 }
 

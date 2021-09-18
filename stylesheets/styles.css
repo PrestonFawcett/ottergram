@@ -138,6 +138,16 @@ a {
     width: 90%;
 }
 
+.btn {
+    background-color: rgb(59, 109, 153);
+    border: transparent;
+    border-radius: 0.50em;
+    color: white;
+    font-size: 2em;
+    margin: 0 0.25em;
+    padding: 0.5em 1em;
+}
+
 .detail-image-title {
     position: absolute;
     bottom: -16px;
